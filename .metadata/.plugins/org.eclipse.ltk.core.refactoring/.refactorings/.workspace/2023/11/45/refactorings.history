@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;FreeRTOS_Port/Core/Src/freertos_utilities&apos;" deleteContents="false" description="Delete resource &apos;FreeRTOS_Port/Core/Src/freertos_utilities&apos;" element1="/FreeRTOS_Port/Core/Src/freertos_utilities" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1699193981079"/>
+</session>

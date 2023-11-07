@@ -1,0 +1,52 @@
+/*
+ * freertos_utilities.c
+ *
+ *  Created on: 05-Nov-2023
+ *      Author: Suraj Vanjeeswaran Iyer
+ */
+
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "task.h"
+
+/* USER CODE END Includes */
+
+TaskHandler_t myT1Handle = NULL;
+TaskHandler_t myT2Handle = NULL;
+
+void myT1(void *);
+void myT2(void *);
+
+
+void myT1(void *parameters)
+{
+	int count = 0;
+
+	while(1) {
+		printf("Hello World %d \r\n", count++);
+		vTaskDelay(1000 * configTICK_RATE_HZ / 1000);
+	}
+}
+
+void myT2(void *parameters)
+{
+	while(1) {
+		printf("Hey There \r\n");
+		vTaskDelay(1000 * configTICK_RATE_HZ / 1000);
+	}
+}
+
+
+
+void rtos_utility_demo()
+{
+
+
+}
+
+
+

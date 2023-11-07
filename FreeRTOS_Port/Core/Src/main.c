@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include "FreeRTOS.h"
+#include "freertos_utilities.h"
 #include "task.h"
 /* USER CODE END Includes */
 
@@ -60,6 +61,7 @@ void myTask1(void *);
 void myTask2(void *);
 void myTask3(void *);
 void myIntTask(void *);
+void _EXTI0_IRQHandler();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -130,6 +132,7 @@ void myIntTask(void *p)
 	while(1) {
 		vTaskSuspend(NULL); //Suspend Itself.
 		vTaskDelay(1000 * configTICK_RATE_HZ / 1000);
+		printf("The user button is pressed!!!\r\n");
 
 	}
 
@@ -157,7 +160,7 @@ void button_init()
  * @brief : Interrupt Service Routine for User Button on Discovery Board.
  * @param : None.
  * */
-void EXTI0_IRQHandler()
+void _EXTI0_IRQHandler()
 {
 	BaseType_t checkIfYieldIsRequired;
 
@@ -203,7 +206,7 @@ int main(void)
   /*
    * @param1: Task Handler name.
    * @param2: "Unique String for the new task".
-   * @param3: Stack Size in words,not in bytes.
+   * @param3: Stack Size is in words,not in bytes.
    * @param4: Argument(s) to be passed to the task handler.
    * @param5: Priority of the task can be 0,1,2,3,4 here a macro is used for zero.
    * @param6: Pointer to a handle for the task.

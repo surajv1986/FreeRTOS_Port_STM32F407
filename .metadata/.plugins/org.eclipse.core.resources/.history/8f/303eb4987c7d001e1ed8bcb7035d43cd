@@ -1,0 +1,13 @@
+/*
+ * freertos_utilities.h
+ *
+ *  Created on: 07-Nov-2023
+ *      Author: Dell
+ */
+
+#ifndef INC_FREERTOS_UTILITIES_H_
+#define INC_FREERTOS_UTILITIES_H_
+
+
+
+#endif /* INC_FREERTOS_UTILITIES_H_ */

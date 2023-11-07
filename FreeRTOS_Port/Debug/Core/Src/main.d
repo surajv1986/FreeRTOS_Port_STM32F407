@@ -33,6 +33,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/deprecated_definitions.h \
  E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h \
  E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/mpu_wrappers.h \
+ ../Core/Inc/freertos_utilities.h \
  E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/task.h \
  E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/list.h
 ../Core/Inc/main.h:
@@ -70,5 +71,6 @@ E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/portable.h:
 E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/deprecated_definitions.h:
 E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h:
 E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/mpu_wrappers.h:
+../Core/Inc/freertos_utilities.h:
 E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/task.h:
 E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include/list.h:

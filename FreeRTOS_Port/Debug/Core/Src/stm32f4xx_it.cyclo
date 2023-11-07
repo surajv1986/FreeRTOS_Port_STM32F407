@@ -4,4 +4,5 @@ stm32f4xx_it.c:100:6:MemManage_Handler	1
 stm32f4xx_it.c:115:6:BusFault_Handler	1
 stm32f4xx_it.c:130:6:UsageFault_Handler	1
 stm32f4xx_it.c:145:6:DebugMon_Handler	1
+stm32f4xx_it.c:166:6:EXTI0_IRQHandler	1
 stm32f4xx_it.c:180:6:TIM4_IRQHandler	1
