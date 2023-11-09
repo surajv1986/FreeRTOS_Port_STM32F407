@@ -19,6 +19,7 @@
 TaskHandle_t myT1Handle = NULL;
 TaskHandle_t myT2Handle = NULL;
 
+char myTaskList[300];
 
 
 
@@ -44,10 +45,26 @@ void myT1(void *parameters)
 void myT2(void *parameters)
 {
 	int count = 0;
+	//eTaskState myState = 0;
 
 	while(1) {
 		count++;
+
+#if 0
+		myState = eTaskGetState(myT2Handle);
+		printf("The Current Task state is %d\r\n", myState);
+		myState = eTaskGetState(myT2Handle);
+		printf("The state of Task 1 is %d\r\n", myState);
 		printf("Hey There, the count is %d \r\n", count);
+#endif
+
+
+
+		vTaskList(myTaskList);
+		printf("%s\r\n", myTaskList);
+		printf("The total number of tasks running is %d\r\n", uxTaskGetNumberOfTasks());
+		printf("The total ticks is : %d\r\n", xTaskGetTickCount()); // Not to be used inside an ISR.
+		printf("The total ticks is : %d\r\n", xTaskGetTickCountFromISR()); //Use this variant inside an ISR.
 		printf("The task name is : %s \r\n", pcTaskGetName(myT2Handle));
 		vTaskDelay(1000 * configTICK_RATE_HZ / 1000);
 		if (count == 30) {
