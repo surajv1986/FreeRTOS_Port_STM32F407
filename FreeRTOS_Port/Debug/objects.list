@@ -1,5 +1,6 @@
 "./Core/Src/freertos_utilities.o"
 "./Core/Src/main.o"
+"./Core/Src/queue.o"
 "./Core/Src/stm32f4xx_hal_msp.o"
 "./Core/Src/stm32f4xx_hal_timebase_tim.o"
 "./Core/Src/stm32f4xx_it.o"

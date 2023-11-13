@@ -1,0 +1,22 @@
+/*
+ * queue.c
+ *
+ *  Created on: 13-Nov-2023
+ *      Author: Dell
+ */
+
+#include <stdio.h>
+#include "main.h"
+#include "FreeRTOS.h"
+#include "queue.h"
+
+TaskHandle_t myTk1Handle = NULL;
+TaskHandle_t myTk2Handle = NULL;
+
+
+
+void init_queue()
+{
+
+
+}

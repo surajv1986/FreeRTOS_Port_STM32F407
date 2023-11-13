@@ -1,33 +1,7 @@
-18:00:32 **** Incremental Build of configuration Debug for project FreeRTOS_Port ****
+15:45:24 **** Incremental Build of configuration Debug for project FreeRTOS_Port ****
 make -j20 all 
-arm-none-eabi-gcc "../Core/Src/freertos_utilities.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I"E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS" -I"E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/include" -I"E:/FreeRTOS/FreeRTOS_Port/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos_utilities.d" -MT"Core/Src/freertos_utilities.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos_utilities.o"
-../Core/Src/freertos_utilities.c: In function 'myT2':
-../Core/Src/freertos_utilities.c:65:49: warning: format '%d' expects argument of type 'int', but argument 2 has type 'UBaseType_t' {aka 'long unsigned int'} [-Wformat=]
-   65 |   printf("The total number of tasks running is %d\r\n", uxTaskGetNumberOfTasks());
-      |                                                ~^       ~~~~~~~~~~~~~~~~~~~~~~~~
-      |                                                 |       |
-      |                                                 int     UBaseType_t {aka long unsigned int}
-      |                                                %ld
-../Core/Src/freertos_utilities.c:66:33: warning: format '%d' expects argument of type 'int', but argument 2 has type 'TickType_t' {aka 'long unsigned int'} [-Wformat=]
-   66 |   printf("The total ticks is : %d\r\n", xTaskGetTickCount()); // Not to be used inside an ISR.
-      |                                ~^       ~~~~~~~~~~~~~~~~~~~
-      |                                 |       |
-      |                                 int     TickType_t {aka long unsigned int}
-      |                                %ld
-../Core/Src/freertos_utilities.c:67:33: warning: format '%d' expects argument of type 'int', but argument 2 has type 'TickType_t' {aka 'long unsigned int'} [-Wformat=]
-   67 |   printf("The total ticks is : %d\r\n", xTaskGetTickCountFromISR()); //Use this variant inside an ISR.
-      |                                ~^       ~~~~~~~~~~~~~~~~~~~~~~~~~~
-      |                                 |       |
-      |                                 int     TickType_t {aka long unsigned int}
-      |                                %ld
-arm-none-eabi-gcc -o "FreeRTOS_Port.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\FreeRTOS\FreeRTOS_Port\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="FreeRTOS_Port.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: FreeRTOS_Port.elf
- 
 arm-none-eabi-size   FreeRTOS_Port.elf 
-arm-none-eabi-objdump -h -S  FreeRTOS_Port.elf  > "FreeRTOS_Port.list"
    text	   data	    bss	    dec	    hex	filename
-  19520	    128	  78768	  98416	  18070	FreeRTOS_Port.elf
+  18960	    128	  78776	  97864	  17e48	FreeRTOS_Port.elf
 Finished building: default.size.stdout
- 
-Finished building: FreeRTOS_Port.list
  

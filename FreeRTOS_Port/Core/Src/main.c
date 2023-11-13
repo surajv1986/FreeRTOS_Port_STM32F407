@@ -77,15 +77,15 @@ void myTask1(void *p)
 	TickType_t myLastUnblock;
 
 	while(1){
-		printf("count is %d\r\n", count++);
+		printf("In Task 1 : count is %d\r\n", count++);
 		//vTaskDelay(1000);  // This is not accurate, its based on the no. of systicks not seconds or milliseconds.
 		//vTaskDelay(1000 * configTICK_RATE_HZ / 1000); //This is in milliseconds.
-		//vTaskDelay(pdMS_TO_TICKS(3000)); //This function i.e. pdMS_TO_TICKS can be used instead of the above equation, it also gives delay in milliseconds.
+		vTaskDelay(pdMS_TO_TICKS(3000)); //This function i.e. pdMS_TO_TICKS can be used instead of the above equation, it also gives delay in milliseconds.
 		/*Pls note that vTaskDelay is not very accurate,
 		 * for accurate delays in ms you can use vTaskDelayUntil
 		 * as shown below */
-		myLastUnblock = xTaskGetTickCount();
-		vTaskDelayUntil(&myLastUnblock, pdMS_TO_TICKS(1000));
+		//myLastUnblock = xTaskGetTickCount();
+		//vTaskDelayUntil(&myLastUnblock, pdMS_TO_TICKS(1000));
 		if (count >= 30){
 			vTaskDelete(myTask1Handle);
 		}
@@ -99,15 +99,17 @@ void myTask1(void *p)
  */
 void myTask2(void *p)
 {
-	int count = (int *)p;
+	//int count = (int *)p;
+	int count = 0;
 	TickType_t myLastUnblock;
 
 	while(1){
-		printf("count is %d\r\n", count++);
+		printf("In Task 2 count is %d\r\n", count++);
 		//vTaskDelay(1000);
-		//vTaskDelay(pdMS_TO_TICKS(1000));
-		myLastUnblock = xTaskGetTickCount();
-		vTaskDelayUntil(&myLastUnblock, pdMS_TO_TICKS(1000));
+		//vTaskDelay(1000 * configTICK_RATE_HZ / 1000); //This is in milliseconds.
+		vTaskDelay(pdMS_TO_TICKS(3000));
+		//myLastUnblock = xTaskGetTickCount();
+		//vTaskDelayUntil(&myLastUnblock, pdMS_TO_TICKS(1000));
 		if (count >= 30){
 			vTaskDelete(myTask2Handle);
 		}
@@ -211,20 +213,20 @@ int main(void)
    * @param5: Priority of the task can be 0,1,2,3,4 here a macro is used for zero.
    * @param6: Pointer to a handle for the task.
    * */
-#if 0
   xReturn = xTaskCreate(myTask1, "Task1", 200, (void *) 0, tskIDLE_PRIORITY, &myTask1Handle);
   if (xReturn != pdPASS) {
 	  printf("Error creating task1!!!");
   }
-  xReturn = xTaskCreate(myTask2, "Task2", 200, (void *) pass, tskIDLE_PRIORITY, &myTask2Handle);
+  xReturn = xTaskCreate(myTask2, "Task2", 200, (void *) 0, tskIDLE_PRIORITY, &myTask2Handle);
     if (xReturn != pdPASS) {
   	  printf("Error creating task2!!!");
     }
+#if 0
    xReturn = xTaskCreate(myTask3, "Task3", 200, (void *) 0, tskIDLE_PRIORITY, &myTask3Handle);
    if (xReturn != pdPASS) {
       	  printf("Error creating task2!!!");
    }
-#endif
+
    xReturn = xTaskCreate(myTask2, "Task2", 200, (void *) pass, tskIDLE_PRIORITY, &myTask2Handle);
        if (xReturn != pdPASS) {
      	  printf("Error creating task2!!!");
@@ -233,6 +235,7 @@ int main(void)
    if (xReturn != pdPASS) {
       printf("Error creating IntTask!!!");
    }
+#endif
   vTaskStartScheduler();
   /* USER CODE END 2 */
 
