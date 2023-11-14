@@ -1,0 +1,46 @@
+/*
+ * freertos_mutex.c
+ *
+ *  Created on: 14-Nov-2023
+ *      Author: Dell
+ */
+
+
+#include "main.h"
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "freertos_utilities.h"
+#include "task.h"
+
+TaskHandle_t myThread1Handle = NULL;
+TaskHandle_t myThread2Handle = NULL;
+
+
+void myThread1(void *p)
+{
+	while (1) {
+
+	}
+
+}
+
+void myThread2(void *p)
+{
+	while (1) {
+
+	}
+
+}
+
+void freertos_mutex()
+{
+	xReturn = xTaskCreate(myTask1, "Task1", 200, (void *) 0, tskIDLE_PRIORITY, &myThread1Handle);
+	if (xReturn != pdPASS) {
+		  printf("Error creating task1!!!");
+	}
+    xReturn = xTaskCreate(myTask2, "Task2", 200, (void *) 0, tskIDLE_PRIORITY, &myThread2Handle);
+	if (xReturn != pdPASS) {
+	  	  printf("Error creating task2!!!");
+	}
+
+}

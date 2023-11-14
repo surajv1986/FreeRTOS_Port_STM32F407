@@ -1,0 +1,35 @@
+/*
+ * freertos_mutex.c
+ *
+ *  Created on: 14-Nov-2023
+ *      Author: Dell
+ */
+
+
+#include "main.h"
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "freertos_utilities.h"
+#include "task.h"
+
+TaskHandle_t myTask1Handle = NULL;
+TaskHandle_t myTask2Handle = NULL;
+
+
+void myThread1(void *p)
+{
+	while (1) {
+
+	}
+
+}
+
+void myThread2(void *p)
+{
+	while (1) {
+
+	}
+
+}
+
+

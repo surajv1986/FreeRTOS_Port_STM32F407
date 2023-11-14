@@ -1,3 +1,4 @@
+"./Core/Src/freertos_mutex.o"
 "./Core/Src/freertos_utilities.o"
 "./Core/Src/main.o"
 "./Core/Src/queue.o"

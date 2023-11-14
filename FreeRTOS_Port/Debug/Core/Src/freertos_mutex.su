@@ -1,0 +1,3 @@
+../Core/Src/freertos_mutex.c:22:6:myThread1	32	static
+../Core/Src/freertos_mutex.c:51:6:myThread2	32	static
+../Core/Src/freertos_mutex.c:78:6:freertos_mutex	24	static
