@@ -1,0 +1,140 @@
+/*
+ * task_notifications.c
+ *
+ *  Created on: 14-Nov-2023
+ *      Author: Dell
+ */
+#include "main.h"
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "freertos_utilities.h"
+#include "task.h"
+
+TaskHandle_t myTkt1Handle = NULL;
+TaskHandle_t myTkt2Handle = NULL;
+TaskHandle_t myNTask1Handle = NULL;
+TaskHandle_t myNTask2Handle = NULL;
+
+void myNTask1(void *p)
+{
+	uint32_t ulNotifiedValue = 0;
+
+	xTaskNotify(myNTask2Handle, (1 << 0) , eSetValueWithOverwrite);
+	vTaskDelay(1000);
+	xTaskNotify(myNTask2Handle, (1 << 1) , eSetValueWithOverwrite);
+	vTaskDelay(1000);
+	/* Query the previous value while sending the notification. */
+	xTaskNotifyAndQuery(myNTask2Handle, (1 << 2) , eSetValueWithOverwrite, &ulNotifiedValue);
+	vTaskDelay(1000);
+	printf("The previous notification value was: %d\r\n", ulNotifiedValue);
+	while(1) {
+		//xTaskNotify(myNTask2Handle, 0 , eNoAction);
+		vTaskDelay(1000);
+		/* The third parameter increments the notification value from 1 */
+		//xTaskNotify(myNTask2Handle, 0 , eIncrement);
+		//vTaskDelay(1000);
+		/* Sets the first, 2nd and third bits in the 32 bit uint32_t notification value sent
+		 * Alternatively, 7 can be passed directly as the 2nd argument with eNoAction as the
+		 * 3rd Parameter. */
+		xTaskNotify(myNTask2Handle, (1 << 0)|(1 << 1) | (1 << 2) , eSetBits);
+		/* Prints 1, 3  and 7 sequentially */
+		xTaskNotify(myNTask2Handle, (1 << 0) , eSetBits);
+		vTaskDelay(1000);
+		xTaskNotify(myNTask2Handle, (1 << 1) , eSetBits);
+		vTaskDelay(1000);
+		xTaskNotify(myNTask2Handle, (1 << 2) , eSetBits);
+		vTaskDelay(1000);
+
+		/* Prints 1,2 and 4 sequentially, i.e. overwrites the previous value set in the notification sent earlier. */
+		xTaskNotify(myNTask2Handle, (1 << 0) , eSetValueWithOverwrite);
+		vTaskDelay(1000);
+		xTaskNotify(myNTask2Handle, (1 << 1) , eSetValueWithOverwrite);
+		vTaskDelay(1000);
+		xTaskNotify(myNTask2Handle, (1 << 2) , eSetValueWithOverwrite);
+		vTaskDelay(1000);
+
+	}
+
+}
+
+void myNTask2(void *p)
+{
+	uint32_t ulNotifiedValue = 0;
+
+	while (1) {
+		/*
+		 * 1st param, clear masked value from invoking function on entry.
+		 * 2nd param, clear masked value from invoking function on exit.
+		 * Notification value sent.
+		 * Delay.
+		 * */
+		if (xTaskNotifyWait(0, 0, &ulNotifiedValue, portMAX_DELAY) == pdTRUE) {
+			printf("notification received with the value: %ld\r\n", ulNotifiedValue);
+		}
+	}
+
+}
+
+void myTkt1(void *p)
+{
+	while (1) {
+		xTaskNotifyGive(myTkt2Handle);
+		/* Uncomment below lines to send multiple notifications
+		 * To be used in conjunction with pdFalse in Take API
+		 * in the other task
+		 * */
+#if 0
+		xTaskNotifyGive(myTkt2Handle);
+		xTaskNotifyGive(myTkt2Handle);
+		xTaskNotifyGive(myTkt2Handle);
+		xTaskNotifyGive(myTkt2Handle);
+#endif
+
+		vTaskDelay(1000);
+
+	}
+
+}
+
+
+void myTkt2(void *p)
+{
+	int notificationValue = 0;
+	while (1) {
+		/* For The first parameter, pdTrue resets the received value, while pdFalse decrements the received value.
+		 * The 2nd parameter is the blocking parameter, a long delay.
+		 * Returns the Notification value send from the invoking task.
+		 *  */
+		notificationValue = ulTaskNotifyTake(pdTRUE,(TickType_t) portMAX_DELAY );
+
+		if (notificationValue >= 0) {
+			printf(" Received Notification value %d \r\n", notificationValue);
+		}
+
+	}
+
+}
+
+void task_notifications()
+{
+	BaseType_t xReturn = 0;
+
+	xReturn = xTaskCreate(myTkt1, "Task1", 200, (void *) 0, tskIDLE_PRIORITY, &myTkt1Handle);
+	  if (xReturn != pdPASS) {
+		  printf("Error creating task1!!!");
+	  }
+    xReturn = xTaskCreate(myTkt2, "Task2", 200, (void *) 0, tskIDLE_PRIORITY, &myTkt2Handle);
+	if (xReturn != pdPASS) {
+	   printf("Error creating task2!!!");
+	}
+	xReturn = xTaskCreate(myNTask1, "Task1", 200, (void *) 0, tskIDLE_PRIORITY, &myNTask1Handle);
+	if (xReturn != pdPASS) {
+		printf("Error creating task1!!!");
+	}
+    xReturn = xTaskCreate(myNTask2, "Task2", 200, (void *) 0, tskIDLE_PRIORITY, &myNTask2Handle);
+	if (xReturn != pdPASS) {
+	    printf("Error creating task2!!!");
+	}
+
+
+}

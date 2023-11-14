@@ -1,0 +1,21 @@
+/*
+ * task_notifications.c
+ *
+ *  Created on: 14-Nov-2023
+ *      Author: Dell
+ */
+#include "main.h"
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "freertos_utilities.h"
+#include "task.h"
+
+TaskHandle_t myTkt1Handle = NULL;
+TaskHandle_t myTkt2Handle = NULL;
+
+
+void task_notifications()
+{
+
+
+}

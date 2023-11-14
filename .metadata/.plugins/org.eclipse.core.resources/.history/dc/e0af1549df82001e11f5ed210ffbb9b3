@@ -1,0 +1,51 @@
+/*
+ * task_notifications.c
+ *
+ *  Created on: 14-Nov-2023
+ *      Author: Dell
+ */
+#include "main.h"
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "freertos_utilities.h"
+#include "task.h"
+
+TaskHandle_t myTkt1Handle = NULL;
+TaskHandle_t myTkt2Handle = NULL;
+
+void myTkt1(void *p)
+{
+	while (1) {
+		vTaskNotifyGive(myTkt2Handle);
+		vTaskDelay(1000);
+
+	}
+
+}
+
+
+void myTkt2(void *p)
+{
+	while (1) {
+		/* The first parameter pdTrue resets the received value, while pdFalse uses it as it is
+		 * The 2nd parameter is the blocking parameter, a long delay.
+		 *  */
+		ulTaskNotifyTake(pdTrue,(Tick_Type_t) portMAX_DELAY );
+
+	}
+
+}
+
+void task_notifications()
+{
+	xReturn = xTaskCreate(myTask1, "Task1", 200, (void *) 0, tskIDLE_PRIORITY, &myTkt1Handle);
+	  if (xReturn != pdPASS) {
+		  printf("Error creating task1!!!");
+	  }
+	  xReturn = xTaskCreate(myTask2, "Task2", 200, (void *) 0, tskIDLE_PRIORITY, &myTkt2Handle);
+	    if (xReturn != pdPASS) {
+	  	  printf("Error creating task2!!!");
+	    }
+
+
+}

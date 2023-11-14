@@ -1,0 +1,5 @@
+../Core/Src/task_notifications.c:18:6:myNTask1	32	static
+../Core/Src/task_notifications.c:74:6:myNTask2	32	static
+../Core/Src/task_notifications.c:107:6:myTkt1	24	static
+../Core/Src/task_notifications.c:129:6:myTkt2	24	static
+../Core/Src/task_notifications.c:147:6:task_notifications	24	static

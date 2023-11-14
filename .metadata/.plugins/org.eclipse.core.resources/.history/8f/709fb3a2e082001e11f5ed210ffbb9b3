@@ -1,0 +1,70 @@
+/*
+ * task_notifications.c
+ *
+ *  Created on: 14-Nov-2023
+ *      Author: Dell
+ */
+#include "main.h"
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "freertos_utilities.h"
+#include "task.h"
+
+TaskHandle_t myTkt1Handle = NULL;
+TaskHandle_t myTkt2Handle = NULL;
+
+void myTkt1(void *p)
+{
+	while (1) {
+		xTaskNotifyGive(myTkt2Handle);
+		/* Uncomment below lines to send multiple notifications
+		 * To be used in conjunction with pdFalse in Take API
+		 * in the other task
+		 * */
+#if 0
+		xTaskNotifyGive(myTkt2Handle);
+		xTaskNotifyGive(myTkt2Handle);
+		xTaskNotifyGive(myTkt2Handle);
+		xTaskNotifyGive(myTkt2Handle);
+#endif
+
+		vTaskDelay(1000);
+
+	}
+
+}
+
+
+void myTkt2(void *p)
+{
+	int notificationValue = 0;
+	while (1) {
+		/* For The first parameter, pdTrue resets the received value, while pdFalse decrements the received value.
+		 * The 2nd parameter is the blocking parameter, a long delay.
+		 * Returns the Notification value send from the invoking task.
+		 *  */
+		notificationValue = ulTaskNotifyTake(pdTrue,(Tick_Type_t) portMAX_DELAY );
+
+		if (notificationValue >= 0) {
+			printf(" Received Notification value %d \r\n", notificationValue);
+		}
+
+	}
+
+}
+
+void task_notifications()
+{
+	Base_Type_t xReturn;
+
+	xReturn = xTaskCreate(myTkt1, "Task1", 200, (void *) 0, tskIDLE_PRIORITY, &myTkt1Handle);
+	  if (xReturn != pdPASS) {
+		  printf("Error creating task1!!!");
+	  }
+	  xReturn = xTaskCreate(myTkt2, "Task2", 200, (void *) 0, tskIDLE_PRIORITY, &myTkt2Handle);
+	    if (xReturn != pdPASS) {
+	  	  printf("Error creating task2!!!");
+	    }
+
+
+}
